@@ -981,8 +981,11 @@ class DownloadManager(
         }
 
         private fun String.escape(): String = when {
-            contains(" ") || contains("\"") || contains("'") -> {
-                "\"${replace("\"", "\\\"")}\""
+            any { it.isWhitespace() || it in "\"'\\$`;&|<>()[]{}*?~#" } -> {
+                "\"${replace("\\", "\\\\")
+                    .replace("\"", "\\\"")
+                    .replace("$", "\\$")
+                    .replace("`", "\\`")}\""
             }
 
             else -> this

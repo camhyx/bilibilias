@@ -265,27 +265,30 @@ class FfmpegMerger(
             }
 
             add("-metadata")
-            add("title=\"${task.downloadSegment.title.ffmepgContentSafe()}\"")
+            add("title=${task.downloadSegment.title.ffmepgContentSafe()}")
 
             add("-metadata")
-            add("description=\"${task.downloadTask.description.ffmepgContentSafe()}\"")
+            add("description=${task.downloadTask.description.ffmepgContentSafe()}")
 
             add("-metadata")
-            add("copyright=\"${NewDownloadManager.buildRefererUrl(downloadTaskRepository, task)}\"")
+            add("copyright=${NewDownloadManager.buildRefererUrl(downloadTaskRepository, task)}")
 
             add(outputFile.absolutePath)
-        }.joinToString(" ") { it }.also {
+        }.joinToString(" ") { it.escape() }.also {
             Log.d("FFmpeg", "执行命令: $it")
         }
     }
 
     private fun String.ffmepgContentSafe(): String {
-       return this.stripNewlines().escape()
+       return this.stripNewlines()
     }
 
     private fun String.escape(): String = when {
-        contains(" ") || contains("\"") || contains("'") -> {
-            "\"${replace("\"", "\\\"")}\""
+        any { it.isWhitespace() || it in "\"'\\$`;&|<>()[]{}*?~#" } -> {
+            "\"${replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("$", "\\$")
+                .replace("`", "\\`")}\""
         }
         else -> this
     }
