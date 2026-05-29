@@ -13,9 +13,14 @@ import kotlin.math.pow
 import kotlin.math.roundToLong
 
 actual fun openLink(url: String): Boolean {
-    return UIApplication.sharedApplication.canOpenURL(NSURL(string = url)).also { canOpen ->
+    val nsUrl = NSURL.URLWithString(url) ?: return false
+    return UIApplication.sharedApplication.canOpenURL(nsUrl).also { canOpen ->
         if (canOpen) {
-            UIApplication.sharedApplication.openURL(NSURL(string = url))
+            UIApplication.sharedApplication.openURL(
+                url = nsUrl,
+                options = emptyMap<Any?, Any>(),
+                completionHandler = null
+            )
         }
     }
 }

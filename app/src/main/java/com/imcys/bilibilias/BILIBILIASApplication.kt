@@ -33,8 +33,6 @@ class BILIBILIASApplication : Application(), AppFunctionConfiguration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        // 全局异常捕获
-        // AppCrashHandler.instance.init(this)
         // 启动性能检测
         startStrictMode()
         // 配置初始化

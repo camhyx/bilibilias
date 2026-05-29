@@ -148,9 +148,6 @@ if (!enabledPlayAppMode.toBoolean() && enabledAnalytics.toBoolean()) {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:data"))
     implementation(project(":shared"))
 
     implementation(libs.androidx.activity.compose)
@@ -159,13 +156,6 @@ dependencies {
     // Firebase 选配
     firebaseDependencies(enabledAnalytics.toBoolean())
 
-    // 高斯模糊
-    implementation(libs.compose.cloudy)
-
-    // 分页
-    implementation(libs.paging.compose)
-
-    implementation(libs.device.compat)
     implementation(libs.androidx.documentfile)
 
     // Google Play 选配
@@ -174,25 +164,16 @@ dependencies {
     // 百度统计
     baiduStatDependencies()
 
-    // Shizuku
-    implementation(libs.shizuku.api)
-    implementation(libs.shizuku.provider)
-
     // Native MCP
     implementation(libs.appfunctions)
     implementation(libs.appfunctions.service)
     ksp(libs.appfunctions.compiler)
-
-    // xposed
-    //    compileOnly(libs.xposed.api)
-
 
     // 预览工具
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 
 }
 
