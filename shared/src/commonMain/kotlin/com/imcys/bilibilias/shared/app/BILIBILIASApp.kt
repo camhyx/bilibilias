@@ -352,6 +352,15 @@ fun InstructionsPage(onClickKnowAbout: () -> Unit = {}) {
                                 stringResource(Res.string.instructions_self_responsibility),
                             )
                         }
+                        item {
+                            Text(
+                                """
+                                    注意：该程序由非开源仓库开发者打包而来，这是因为本项目已经停止分发，正常情况下，你不可能在任何地方获得本项目开发者打包的安装包，除非你是学习本项目的开发者，否则你目前使用的APP有可能遭遇篡改。
+                                """.trimIndent(),
+                                color = MaterialTheme.colorScheme.tertiary,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }

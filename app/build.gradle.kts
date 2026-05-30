@@ -30,8 +30,8 @@ android {
 
     defaultConfig {
         applicationId = "com.imcys.bilibilias"
-        versionCode = 316
-        versionName = "3.1.6"
+        versionCode = 320
+        versionName = "320"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders["BAIDU_STAT_ID"] = baiduStatId
         buildConfigField("String", "BAIDU_STAT_ID", """"$baiduStatId"""".trimIndent())

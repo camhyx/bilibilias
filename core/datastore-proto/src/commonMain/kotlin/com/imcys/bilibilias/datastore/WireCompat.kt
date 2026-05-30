@@ -94,6 +94,9 @@ val AppSettings.enabledNavOnBackInvokedCallback: Boolean
 val AppSettings.enabledNavAnimation: Boolean
     get() = enabled_nav_animation ?: false
 
+val AppSettings.packageSourceWarningSkipKey: String
+    get() = package_source_warning_skip_key
+
 fun AppSettings.hasEnabledClipboardAutoHandling(): Boolean = enabled_clipboard_auto_handling != null
 
 fun AppSettings.hasVideoParsePlatform(): Boolean = video_parse_platform != null

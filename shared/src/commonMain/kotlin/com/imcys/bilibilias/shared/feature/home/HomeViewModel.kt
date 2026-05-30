@@ -3,6 +3,7 @@ package com.imcys.bilibilias.shared.feature.home
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imcys.bilibilias.common.data.CommonBuildConfig
 import com.imcys.bilibilias.common.event.sendToastEvent
 import com.imcys.bilibilias.data.model.BILILoginUserModel
 import com.imcys.bilibilias.data.repository.AppSettingsRepository
@@ -60,7 +61,8 @@ class HomeViewModel(
     data class UIState(
         val fromLoginEventConsumed: Boolean = false,
         val shownAppUpdate: Boolean = false,
-        val fetchedAppUpdateInfo: Boolean = false
+        val fetchedAppUpdateInfo: Boolean = false,
+        val shownPackageSourceWarningThisLaunch: Boolean = false
     )
 
     val appSettings = appSettingsRepository.appSettingsFlow
@@ -172,6 +174,21 @@ class HomeViewModel(
             updateInfo.start()
 
 
+        }
+    }
+
+    fun getPackageSourceWarningKey(): String {
+        return "${getAppVersion().second}+${CommonBuildConfig.gitCommitHash}"
+    }
+
+    fun markPackageSourceWarningShownThisLaunch() {
+        if (_uiState.value.shownPackageSourceWarningThisLaunch) return
+        _uiState.value = uiState.value.copy(shownPackageSourceWarningThisLaunch = true)
+    }
+
+    fun skipPackageSourceWarningForCurrentBuild() {
+        viewModelScope.launch(Dispatchers.IO) {
+            appSettingsRepository.updatePackageSourceWarningSkipKey(getPackageSourceWarningKey())
         }
     }
 

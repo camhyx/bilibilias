@@ -237,6 +237,12 @@ class AppSettingsRepository(
             )
         }
     }
+
+    suspend fun updatePackageSourceWarningSkipKey(key: String) {
+        dataStore.updateData { currentSettings ->
+            currentSettings.copy(package_source_warning_skip_key = key)
+        }
+    }
 }
 
 

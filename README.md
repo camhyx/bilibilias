@@ -1,25 +1,7 @@
-<div align="center">
-
-# BILIBILIAS
-
-![bilibilias](https://socialify.git.ci/1250422131/bilibilias/image?custom_description=%E4%BE%BF%E6%8D%B7%E7%9A%84%E7%BC%93%E5%AD%98B%E7%AB%99%E8%A7%86%E9%A2%91%E5%92%8C%E7%95%AA%E5%89%A7&description=1&forks=1&language=1&logo=https%3A%2F%2Fi0.hdslb.com%2Fbfs%2Fim_new%2Fda04832e1000648bef279aa2b2b73a52351201307.png&name=1&owner=1&pattern=Circuit+Board&stargazers=1&theme=Light)
-
-
-
-</div>
-
----
-
-
-## 简介
-
-BILIBILIAS是一款第三方的B站（哔哩哔哩）视频缓存工具，旨在帮助需要离线播放或者剪辑原创视频的自媒体博主。
-
-UP主可以下载一些剪辑素材来制作做视频，学生群体可缓存自己需要的教学视频在其他设备观看。
 
 ## 发布停止
 
-本项目于2026年1月28日起停止公开发布APK，开发者们可继续使用源码编译。
+本项目于2026年5月30日起全面停止一切形式的公开发布APK，学习移动端开发的开发者不得进行任何形式的分发产物。
 
 具体原因请见：[停止APK发布声明](https://api.misakamoe.com/app/)
 
@@ -32,12 +14,18 @@ UP主可以下载一些剪辑素材来制作做视频，学生群体可缓存自
 > 
 > 该项目已经停止公开分发，其他使用本项目的开发者应当继续遵守，不进行公开分发。
 
+**该项目已经转入技术试验性测试，不保证所有功能有用，提交的代码旨在测试最新的前沿的客户端、跨平台技术，仅面向开发者学习。**
+
 BILIBILIAS 是由开源社区开发的 B 站外置工具:
 
 BILIBILIAS没有得到哔哩哔哩许可，哔哩哔哩对用户使用此软件而产生的一切后果概不负责。
 
 BILIBILIAS是一款技术学习驱动的开源项目，我们很多的经验都来自本项目，同时也意味着该项目随时可能停止维护！
 
+## 防伪
+自3.2.0，也就是#29ef8c2d,之后的提交，都必须在每次新安装时弹出以下内容，如果你发现没有，则代表你正在使用伪造的APP，需立刻停止使用：
+
+**注意：该程序由非开源仓库开发者打包而来，这是因为本项目已经停止分发，正常情况下，你不可能在任何公开的地方获得本项目开发者打包的安装包，除非你是学习本项目的开发者，否则你目前使用的APP有可能遭遇篡改。**
 
 ## 立场
 
@@ -58,45 +46,6 @@ BILIBILIAS 在开发过程中参考了公开的网络接口文档。我们始终
 
 📧 **反馈邮箱**：gp@mail.misakamoe.com
 
-## 特征
-
-- 登录
-    - [x] 扫码登录
-    - [x] Cookie登录
-- 平台支持
-  - [x] Web
-  - [x] TV
-  - [ ] Mobile
-- 支持解析类型
-    - [x] 普通视频
-    - [x] 番剧、影视视频
-    - [x] 充电视频
-    - [x] 互动视频
-    - [ ] 课堂（涉及权益问题，暂时不会支持）
-- 支持解析方式
-    - [x] AV、BV、EP、SS链接
-    - [x] B站分享到APP内解析
-    - [x] 投稿、收藏夹、最近观看、点赞、追番列表进行解析
-    - [x] 内置网页解析
-- 下载工具
-    - [x] 内置下载器
-    - [ ] Aria2
-- 辅助工具
-    - [x] 视频逐帧导出
-- 漫游支持
-    - [x] 内置漫游服务器
-    - [ ] 自定义漫游服务器
-- 字幕下载
-    - [x] ASS字幕
-    - [x] SRT字幕
-
-
-## 生态
-
-项目中引入了一些CPP库，比如FFmpeg，为了将他们顺利迁移到Android平台，项目需要重新构建这些仓库。
-为此，项目创建了多个构建和发行的仓库，以便为BILIBILIAS项目提供支持：详细见：[ecology](https://github.com/1250422131/bilibilias/tree/main/ecology)
-
-
 ## 设计
 
 感谢以下设计师对本项目带来无与伦比的UI和Logo设计：
@@ -104,11 +53,3 @@ BILIBILIAS 在开发过程中参考了公开的网络接口文档。我们始终
 - [@123Duo3](https://github.com/123Duo3) - UI设计
 - [@Jessie](https://jmkd.xyz/) - UI设计
 - [@daidr](https://github.com/daidr) - Logo设计
-
-## 鸣谢
-
-本项目的CDN加速和安全防护由腾讯 **[EdgeOne](https://edgeone.ai/?from=github)** 支持！
-
-[<img src="https://edgeone.ai/_next/static/media/headLogo.daeb48ad.png?auto=format&fit=max&w=64"
-alt="EdgeOne"
-height="60">](https://edgeone.ai/?from=github)

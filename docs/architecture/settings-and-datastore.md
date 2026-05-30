@@ -120,6 +120,8 @@ proto 定义位于：
   - 公告忽略状态。
 - `unknown_app_sign_warning_close_time`
   - 签名告警关闭时间。
+- `package_source_warning_skip_key`
+  - 记录“此版本不再提示”的版本号 + git hash 组合 key。
 
 ## `User` 与 `GooglePlaySettings`
 

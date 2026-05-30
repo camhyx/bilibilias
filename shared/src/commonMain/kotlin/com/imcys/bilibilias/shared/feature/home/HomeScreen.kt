@@ -117,6 +117,7 @@ import com.imcys.bilibilias.ui.component.ASTopAppBar
 import com.imcys.bilibilias.ui.component.BILIBILIASTopAppBarStyle
 import com.imcys.bilibilias.ui.component.SurfaceColorCard
 import com.imcys.bilibilias.ui.component.tip.ASWarringTip
+import com.imcys.bilibilias.ui.utils.DialogSortHost
 import com.imcys.bilibilias.shared.ui.component.ASLoginPlatformFilterChipRow
 import com.imcys.bilibilias.shared.ui.component.AsAutoError
 import com.imcys.bilibilias.shared.ui.component.DownloadTaskCard
@@ -350,6 +351,7 @@ private fun HomeContent(
     var closeBulletinDialogShow by remember { mutableStateOf(false) }
     var bulletinDialogShow by remember { mutableStateOf(false) }
     var unknownAppSign by remember { mutableStateOf(false) }
+    var packageSourceWarningDialogShow by remember { mutableStateOf(false) }
     val shouldShowUnknownAppSignWarning =
         remember(unknownAppSign, appSettings.unknownAppSignWarningCloseTime) {
             val oneMonthAgo =
@@ -366,6 +368,18 @@ private fun HomeContent(
 
     LaunchedEffect(Unit) {
         vm.initOldAppInfo()
+    }
+
+    val packageSourceWarningKey = remember { vm.getPackageSourceWarningKey() }
+
+    LaunchedEffect(packageSourceWarningKey, appSettings.packageSourceWarningSkipKey) {
+        if (
+            !uiState.shownPackageSourceWarningThisLaunch &&
+            appSettings.packageSourceWarningSkipKey != packageSourceWarningKey
+        ) {
+            packageSourceWarningDialogShow = true
+            vm.markPackageSourceWarningShownThisLaunch()
+        }
     }
 
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -661,29 +675,87 @@ private fun HomeContent(
     }
 
 
-    /**
-     * 更新提示对话框
-     */
+    DialogSortHost {
+        dialog(
+            visible = packageSourceWarningDialogShow,
+            order = 0,
+            key = "package_source_warning"
+        ) {
+            PackageSourceWarningDialog(
+                onClickConfirm = {
+                    packageSourceWarningDialogShow = false
+                },
+                onClickSkipCurrentBuild = {
+                    vm.skipPackageSourceWarningForCurrentBuild()
+                    packageSourceWarningDialogShow = false
+                },
+                onDismiss = {
+                    packageSourceWarningDialogShow = false
+                }
+            )
+        }
 
-    UpdateAppDialog(appUpdateInfo, uiState.shownAppUpdate, onAppUpdateDialogShown = {
-        vm.onAppUpdateDialogShown()
-    })
+        dialog(
+            visible = !packageSourceWarningDialogShow,
+            order = 1,
+            key = "update_app"
+        ) {
+            UpdateAppDialog(appUpdateInfo, uiState.shownAppUpdate, onAppUpdateDialogShown = {
+                vm.onAppUpdateDialogShown()
+            })
+        }
 
-    /**
-     * 关闭公告对话框
-     */
-    CloseBulletinDialog(closeBulletinDialogShow, onClickConfirm = {
-        vm.updateLastBulletinContent()
-    }, onClickDismiss = {
-        closeBulletinDialogShow = false
-    })
+        dialog(
+            visible = !packageSourceWarningDialogShow && closeBulletinDialogShow,
+            order = 2,
+            key = "close_bulletin"
+        ) {
+            CloseBulletinDialog(closeBulletinDialogShow, onClickConfirm = {
+                vm.updateLastBulletinContent()
+            }, onClickDismiss = {
+                closeBulletinDialogShow = false
+            })
+        }
 
-    /**
-     * 公告对话框
-     */
-    BulletinDialog(bulletinInfo, bulletinDialogShow, onClickConfirm = {
-        bulletinDialogShow = false
-    })
+        dialog(
+            visible = !packageSourceWarningDialogShow && bulletinDialogShow,
+            order = 3,
+            key = "bulletin"
+        ) {
+            BulletinDialog(bulletinInfo, bulletinDialogShow, onClickConfirm = {
+                bulletinDialogShow = false
+            })
+        }
+    }
+}
+
+@Composable
+private fun PackageSourceWarningDialog(
+    onClickConfirm: () -> Unit,
+    onClickSkipCurrentBuild: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    ASAlertDialog(
+        showState = true,
+        clickBlankDismiss = true,
+        title = { Text("注意") },
+        text = {
+            Text(
+                "该程序由非开源仓库开发者打包而来，这是因为本项目已经停止分发，正常情况下，你不可能在任何地方获得本项目开发者打包的安装包，除非你是学习本项目的开发者，否则你目前使用的APP有可能遭遇篡改。"
+            )
+        },
+        confirmButton = {
+            ASTextButton(onClick = onClickConfirm) {
+                Text(text = "确定")
+            }
+        },
+        dismissButton = {
+            ASTextButton(onClick = onClickSkipCurrentBuild) {
+                Text(text = "此版本不再提示")
+            }
+        },
+        onDismiss = onDismiss
+    )
 }
 
 @Composable

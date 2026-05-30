@@ -109,4 +109,6 @@ message AppSettings {
   optional bool enabled_nav_on_back_invoked_callback = 24;
   // 启用导航动画
   optional bool enabled_nav_animation = 25;
+  // 安装包来源风险提示：此版本不再提示的 key（版本号+git hash）
+  string package_source_warning_skip_key = 26;
 }
