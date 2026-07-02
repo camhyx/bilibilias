@@ -36,3 +36,9 @@ jobs:
 
       - name: Assemble alphaRelease
         run: ./gradlew :app:assembleAlphaRelease --stacktrace --info
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bilibilias-APK
+          path: "**/build/outputs/apk/**/*.apk"
+ 
